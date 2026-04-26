@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lessons Learned — Emergency Preparedness Procurement · FAO Ukraine</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  html, body {
+    margin: 0; padding: 0; background: #08306B;
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #0E1B2C; height: 100%; overflow: hidden;
+  }
+  * { box-sizing: border-box; }
+  textarea, input { font-family: inherit; }
+
+  /* ── Slide content entry animations ─────────────────────────────────────── */
+  @keyframes deckContentIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Target the direct children of the React-rendered slide <section> */
+  [data-deck-active] > section > * {
+    animation: deckContentIn 480ms cubic-bezier(.22,.8,.3,1) both;
+  }
+  [data-deck-active] > section > *:nth-child(1) { animation-delay: 60ms; }
+  [data-deck-active] > section > *:nth-child(2) { animation-delay: 140ms; }
+  [data-deck-active] > section > *:nth-child(3) { animation-delay: 210ms; }
+  [data-deck-active] > section > *:nth-child(4) { animation-delay: 270ms; }
+  [data-deck-active] > section > *:nth-child(5) { animation-delay: 320ms; }
+  [data-deck-active] > section > *:nth-child(6) { animation-delay: 360ms; }
+
+  /* Don't shift the absolutely-positioned footer */
+  [data-deck-active] > section > [style*="position: absolute"] {
+    animation: none;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  @media print {
+    [data-deck-active] > section > * { animation: none !important; }
+  }
+</style>
+
+<script type="application/json" id="speaker-notes">
+[
+  "Welcome everyone. Today's review covers three procurements we managed in FAO Ukraine: vegetable seed kits, potato seed tubers, and one-day-old chicks. The goal is constructive — to identify where time accumulated and what we change next time. No names, no blame.",
+  "Let's start with what was at stake. These three commodities all serve a calendar that doesn't move. Vegetable seeds need to reach farmers by spring sowing. Potato tubers have a tight April planting window. Chicks need to land the day brooding is ready. Every internal day spent is a day taken from the season.",
+  "A quick word on method. We logged every traced milestone — emails, GRMS events, clearances — with date and role. We computed lead times between consecutive milestones, grouped them into stages, and compared the end date to the planting calendar. The data is exhaustive but anonymised by role.",
+  "Here are the three procurements at a glance. Same shared pre-solicitation phase for vegetable and potato seeds — they were bundled. Chicks ran in parallel, on a different PR. The end column is what should hold our attention: how many days from first email to readiness.",
+  "Now put them on one axis. The green band is the ideal delivery window for each commodity; the red line is the latest acceptable date. The visual story: every commodity ended up at or past the latest acceptable line. The timelines also overlap heavily — three procurements competing for the same evaluation and contracting capacity.",
+  "Now the counterfactual. Imagine we'd waited until project signature — December 8th, the earliest funded start — to begin any procurement. Same vendors, same evaluation effort, same calendar days. Just no advance work. Every single timeline shifts months past the latest acceptable date. The advance procurement work wasn't extra effort. It was the only reason any of this landed in time for the season.",
+  "Vegetable seeds first. Notice how the stage breakdown is dominated by pre-solicitation and evaluation. The right side shows the five longest individual gaps — the 41-day procurement feedback and the 69-day technical evaluation are the headline items.",
+  "Same shape for potato seeds, with one extra item: the 21-day exchange on ITB requirements after PR was raised, because what was published didn't match what had been cleared. That's a handoff issue we should hold in mind for the patterns slide.",
+  "Chicks tell a different story. The 98-day technical evaluation is the single largest delay across all three procurements. The note explains it: a misunderstanding on how to treat administrative criteria with technical content, then clarifications, then a waiver to avoid cancellation.",
+  "For the people who want the full audit trail — every milestone, every actor role, every flagged gap — these next three slides have the complete tables for each commodity. We won't read every line; they're for reference and for any questions.",
+  "Vegetable seeds, full trail. The highlighted rows are gaps over thirty days or events that contributed to a longer subsequent step.",
+  "Potato seeds, same view. Note how the early pre-solicitation rows are identical to vegetables — that's the shared phase.",
+  "Chicks, full trail. The single 98-day row is what bent the whole curve.",
+  "Stage by stage now. Pre-solicitation took the most days for vegetable and potato seeds; technical evaluation took the most for chicks. Across the three, evaluation was the most expensive stage on average.",
+  "If we rank every individual gap across all three procurements, these seven account for over 339 days. Each one has a story — and most of those stories are about an unclear handoff, not about the work itself being slow.",
+  "Now the interactive part. The defaults on screen are the planting and brooding windows from public agronomic guidance for Ukraine. They're editable. Anything you change here, or in the floating panel that follows us through the deck, immediately updates every other slide. Let's calibrate them together for our actual oblast mix.",
+  "And here's the live readout. With the dates we just set, here's how many days past the latest acceptable each commodity actually was. Green means we made it. Amber, past the ideal but inside the cushion. Red, past the season cutoff entirely.",
+  "Stepping back, five recurring patterns. Multi-cycle TS reviews. Late-stage TS issues that should have surfaced earlier. Evaluation criteria interpretation. PR rework loops in GRMS. And steps run sequentially that could have been parallel. None of these are individual failures — all are handoffs.",
+  "These are the lessons learned. The first one is auto-proposed from the longest stage in the data. They're all editable on screen. Let's spend time here and refine each one based on the discussion.",
+  "And finally, what we change next time — phase by phase. Pre-cycle, pre-solicitation, evaluation. Each item is concrete and answers one of the patterns we just saw.",
+  "Open floor. The floating panel stays available — please push the dates around as we discuss, and watch how the picture changes."
+]
+</script>
+
+<script src="deck-stage.js"></script>
+<script src="data.js"></script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="planting-editor.jsx"></script>
+<script type="text/babel" src="slides-1.jsx"></script>
+<script type="text/babel" src="slides-2.jsx"></script>
+</head>
+<body>
+
+<div id="dock-root"></div>
+
+<deck-stage width="1920" height="1080" id="deck">
+  <section data-stage-mount="cover"></section>
+  <section data-stage-mount="why"></section>
+  <section data-stage-mount="methodology"></section>
+  <section data-stage-mount="planting"></section>
+  <section data-stage-mount="atGlance"></section>
+  <section data-stage-mount="gantt"></section>
+  <section data-stage-mount="counterfactual"></section>
+  <section data-stage-mount="veg-summary"></section>
+  <section data-stage-mount="potato-summary"></section>
+  <section data-stage-mount="chick-summary"></section>
+  <section data-stage-mount="trails-intro"></section>
+  <section data-stage-mount="heatmap"></section>
+  <section data-stage-mount="gap"></section>
+  <section data-stage-mount="patterns"></section>
+  <section data-stage-mount="recommendations"></section>
+  <section data-stage-mount="lessons"></section>
+  <section data-stage-mount="closing"></section>
+</deck-stage>
+
+<script type="text/babel">
+  // Mount each slide into its host <section>
+  const Trails = () => (
+    <window.Slide label="09 Full milestone trails">
+      <window.SlideTitle
+        eyebrow="Reference"
+        title="The complete milestone trails."
+        sub="The next three slides hold every traced step. Use them in the discussion as the source of truth — we won't read them line by line."
+      />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginTop: 28 }}>
+        {['vegetableSeeds', 'potatoSeeds', 'chicks'].map((k, i) => {
+          const p = window.PROCUREMENT_DATA[k];
+          return (
+            <div key={k} style={{
+              background: 'white', border: `1px solid ${window.FAO.rule}`,
+              borderTop: `10px solid ${p.color}`, borderRadius: 10, padding: 36
+            }}>
+              <div style={{ fontSize: 34, fontWeight: 600, marginBottom: 10 }}>{p.name}</div>
+              <div style={{ fontSize: 24, color: window.FAO.inkSoft, lineHeight: 1.4, marginBottom: 20 }}>
+                {p.steps.length} milestones · {p.totalWorkingDays} working days end-to-end.
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {p.stages.map((s, j) => (
+                  <div key={j} style={{
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    fontSize: 24, padding: '7px 0',
+                    borderBottom: j < p.stages.length - 1 ? `1px solid ${window.FAO.ruleSoft}` : 'none'
+                  }}>
+                    <span>
+                      <span style={{
+                        display: 'inline-block', width: 11, height: 11, marginRight: 10,
+                        background: window.STAGE_COLORS[s.stage], borderRadius: 2
+                      }} />
+                      {s.stage}
+                    </span>
+                    <span style={{ fontFeatureSettings: '"tnum"', fontWeight: 600 }}>{s.days}d</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </window.Slide>
+  );
+
+  const slideMap = {
+    cover: <window.SlideCover />,
+    why: <window.SlideWhy />,
+    methodology: <window.SlideMethodology />,
+    atGlance: <window.SlideAtGlance />,
+    gantt: <window.SlideGantt />,
+    counterfactual: <window.SlideCounterfactual />,
+    'veg-summary':    <window.CommoditySlide procKey="vegetableSeeds" label="06 Vegetable seeds — summary" eyebrow="Commodity 1 of 3" />,
+    'potato-summary': <window.CommoditySlide procKey="potatoSeeds"    label="07 Potato seeds — summary"    eyebrow="Commodity 2 of 3" />,
+    'chick-summary':  <window.CommoditySlide procKey="chicks"         label="08 Day-old chicks — summary"  eyebrow="Commodity 3 of 3" />,
+    'trails-intro': <Trails />,
+
+    heatmap: <window.SlideHeatmap />,
+    planting: <window.SlidePlantingCalendar />,
+    gap: <window.SlideGapToDelivery />,
+    patterns: <window.SlidePatterns />,
+    lessons: <window.SlideLessons />,
+    recommendations: <window.SlideRecommendations />,
+    closing: <window.SlideClosing />,
+  };
+
+  // Mount slides
+  document.querySelectorAll('[data-stage-mount]').forEach(host => {
+    const key = host.getAttribute('data-stage-mount');
+    if (slideMap[key]) {
+      ReactDOM.createRoot(host).render(slideMap[key]);
+    }
+  });
+
+  // ── Slide sidebar navigator ──────────────────────────────────────────────
+  function SlideSidebar() {
+    const [open, setOpen] = React.useState(false);
+    const [slides, setSlides] = React.useState([]);
+    const [current, setCurrent] = React.useState(0);
+    const initialized = React.useRef(false);
+
+    React.useEffect(() => {
+      const deck = document.querySelector('deck-stage');
+      if (!deck) return;
+      const onSlideChange = (e) => {
+        setCurrent(e.detail.index);
+        if (!initialized.current) {
+          initialized.current = true;
+          const els = document.querySelectorAll('[data-deck-slide]');
+          setSlides(Array.from(els).map((el, i) => {
+            // data-label is set on the inner React-rendered <section>
+            const inner = el.querySelector('[data-label]');
+            const raw = inner
+              ? inner.getAttribute('data-label')
+              : (el.getAttribute('data-screen-label') || `Slide ${i + 1}`);
+            // strip leading number prefix e.g. "05 " or "05b "
+            const label = raw.replace(/^\d+[a-z]?\s+/i, '').trim();
+            return { index: i, num: i + 1, label };
+          }));
+        }
+      };
+      deck.addEventListener('slidechange', onSlideChange);
+      return () => deck.removeEventListener('slidechange', onSlideChange);
+    }, []);
+
+    const goTo = (i) => {
+      const deck = document.querySelector('deck-stage');
+      if (deck) deck.goTo(i);
+      setOpen(false);
+    };
+
+    const FAO_BLUE_DARK = '#0B3D91';
+    const FAO_BLUE_DEEP = '#08306B';
+
+    return (
+      <>
+        {/* Toggle button — top left */}
+        <button onClick={() => setOpen(o => !o)} style={{
+          position: 'fixed', left: 20, top: 20, zIndex: 1001,
+          background: open ? 'rgba(31,111,184,0.95)' : 'rgba(11,61,145,0.88)',
+          color: 'white',
+          border: '1px solid rgba(255,255,255,0.15)', borderRadius: 8,
+          padding: '9px 14px', cursor: 'pointer',
+          fontSize: 12, fontWeight: 600, letterSpacing: '0.05em',
+          textTransform: 'uppercase',
+          fontFamily: '"Inter","Helvetica Neue",Helvetica,Arial,sans-serif',
+          boxShadow: '0 4px 16px rgba(8,48,107,0.35)',
+          backdropFilter: 'blur(8px)',
+          display: 'flex', alignItems: 'center', gap: 8,
+          transition: 'background 180ms ease'
+        }}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+            <line x1="1" y1="3.5" x2="13" y2="3.5"/>
+            <line x1="1" y1="7" x2="13" y2="7"/>
+            <line x1="1" y1="10.5" x2="13" y2="10.5"/>
+          </svg>
+          Slides
+        </button>
+
+        {/* Backdrop */}
+        {open && (
+          <div onClick={() => setOpen(false)} style={{
+            position: 'fixed', inset: 0, zIndex: 999,
+            background: 'rgba(8,48,107,0.35)',
+            backdropFilter: 'blur(2px)'
+          }} />
+        )}
+
+        {/* Sidebar panel */}
+        <div style={{
+          position: 'fixed', left: 0, top: 0, bottom: 0,
+          width: 300, zIndex: 1000,
+          background: 'rgba(8,48,107,0.97)',
+          backdropFilter: 'blur(16px)',
+          boxShadow: '6px 0 40px rgba(0,0,0,0.45)',
+          display: 'flex', flexDirection: 'column',
+          fontFamily: '"Inter","Helvetica Neue",Helvetica,Arial,sans-serif',
+          transform: open ? 'translateX(0)' : 'translateX(-100%)',
+          transition: 'transform 260ms cubic-bezier(.25,.8,.25,1)'
+        }}>
+          {/* Header */}
+          <div style={{
+            padding: '20px 20px 14px',
+            borderBottom: '1px solid rgba(255,255,255,0.1)',
+            flexShrink: 0
+          }}>
+            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 4 }}>
+              FAO Ukraine · Emergency Preparedness
+            </div>
+            <div style={{ fontSize: 13, color: 'white', fontWeight: 600 }}>
+              Slide navigator
+            </div>
+          </div>
+
+          {/* Slide list */}
+          <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
+            {slides.map((s) => (
+              <button key={s.index} onClick={() => goTo(s.index)} style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                width: '100%', background: 'transparent', border: 'none',
+                borderLeft: current === s.index ? '3px solid #5BA8E0' : '3px solid transparent',
+                padding: '10px 18px',
+                cursor: 'pointer', textAlign: 'left',
+                transition: 'background 120ms ease',
+                ...(current === s.index
+                  ? { background: 'rgba(91,168,224,0.15)' }
+                  : {})
+              }}
+              onMouseEnter={e => { if (current !== s.index) e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; }}
+              onMouseLeave={e => { if (current !== s.index) e.currentTarget.style.background = 'transparent'; }}
+              >
+                <span style={{
+                  fontSize: 10, fontWeight: 700, color: current === s.index ? '#5BA8E0' : 'rgba(255,255,255,0.35)',
+                  minWidth: 20, textAlign: 'right', fontFeatureSettings: '"tnum"',
+                  letterSpacing: '0.04em', fontFamily: 'inherit'
+                }}>{String(s.num).padStart(2,'0')}</span>
+                <span style={{
+                  fontSize: 12, lineHeight: 1.35, fontFamily: 'inherit',
+                  color: current === s.index ? 'white' : 'rgba(255,255,255,0.6)',
+                  fontWeight: current === s.index ? 600 : 400
+                }}>{s.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Footer hint */}
+          <div style={{
+            padding: '10px 18px',
+            borderTop: '1px solid rgba(255,255,255,0.08)',
+            fontSize: 11, color: 'rgba(255,255,255,0.3)',
+            flexShrink: 0
+          }}>
+            ← → arrow keys also navigate
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  // Mount sidebar + original floating planting dock
+  ReactDOM.createRoot(document.getElementById('dock-root')).render(
+    <>
+      <SlideSidebar />
+      <window.PlantingDock />
+    </>
+  );
+</script>
+
+</body>
+</html>
