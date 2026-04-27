@@ -405,17 +405,6 @@ function SlidePatterns() {
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 28, padding: '20px 26px', background: window.FAO.paperWarm, borderRadius: 6 }}>
-        <div style={{ fontSize: 22, color: window.FAO.inkSoft, fontWeight: 600,
-          letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6 }}>
-          What unites them
-        </div>
-        <div style={{ fontSize: 26, color: window.FAO.ink, lineHeight: 1.35, textWrap: 'pretty' }}>
-          The common factor is the handoff: each pattern reflects a point where two
-          functions required a shared understanding that had not been established
-          in advance.
-        </div>
-      </div>
     </window.Slide>
   );
 }
