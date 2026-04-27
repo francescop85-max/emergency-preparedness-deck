@@ -65,6 +65,8 @@ function SlideCover() {
 
 // ─── Slide 2: Why this matters ────────────────────────────────────────────────
 function SlideWhy() {
+  const { windows } = window.usePlantingWindows();
+  const fmt = (iso) => window.fmtDateShort(iso);
   return (
     <window.Slide label="02 Why this matters">
       <window.SlideTitle
@@ -76,9 +78,9 @@ function SlideWhy() {
         display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginTop: 40
       }}>
         {[
-        { name: "Vegetable seed kits", color: _D.vegetableSeeds.color, w: "Feb–Apr", note: "Must reach farmers before spring sowing." },
-        { name: "Potato seed tubers", color: _D.potatoSeeds.color, w: "Apr 10–30", note: "Soil temperature dictates the planting window." },
-        { name: "One-day-old chicks", color: _D.chicks.color, w: "On readiness", note: "35–45 day broiler cycle starts on arrival day." }].
+        { name: "Vegetable seed kits", color: _D.vegetableSeeds.color, w: `${fmt(windows.vegetableSeeds.idealStart)}–${fmt(windows.vegetableSeeds.idealEnd)}`, note: "Must reach farmers before spring sowing." },
+        { name: "Potato seed tubers", color: _D.potatoSeeds.color, w: `${fmt(windows.potatoSeeds.idealStart)}–${fmt(windows.potatoSeeds.idealEnd)}`, note: "Soil temperature dictates the planting window." },
+        { name: "One-day-old chicks", color: _D.chicks.color, w: `${fmt(windows.chicks.idealStart)}–${fmt(windows.chicks.idealEnd)}`, note: "35–45 day broiler cycle starts on arrival day." }].
         map((c, i) =>
         <div key={i} style={{
           background: 'white', border: `1px solid ${window.FAO.rule}`,
