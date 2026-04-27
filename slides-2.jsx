@@ -486,121 +486,53 @@ function SlideLessons() {
 }
 
 // ─── Slide: Recommendations ───────────────────────────────────────────────────
-const REC_DEFAULTS = [
-  { phase: "Before the next preparedness cycle starts", items: [
-    "Issue a calendar-anchored procurement plan, working backwards from each commodity's planting / brooding window.",
-    "Pre-clear standard TS and inspection protocols for the recurring commodities so each cycle starts from a cleared baseline.",
-    "Issue a country-level expression of interest to survey the Ukrainian market for best suppliers in specific categories and establish a list of pre-qualified vendors.",
-  ]},
-  { phase: "During pre-solicitation", items: [
-    "Cap Programme ↔ Procurement TS feedback at two rounds before escalation.",
-    "Lock evaluation criteria with the evaluator before issuance; explicitly classify each criterion (admin / technical).",
-  ]},
-  { phase: "During evaluation & contracting", items: [
-    "Request seed certificates only for the lots the company is planning to supply, and verify them for authenticity at offer-receipt.",
-    "Standing LPC slot for emergency-preparedness POs to avoid scheduling delays.",
-  ]},
-];
-
 function SlideRecommendations() {
-  const [recs, setRecs] = u1(() => {
+  const [items, setItems] = u1(() => {
     try {
-      const saved = localStorage.getItem('fao_recs_v1');
+      const saved = localStorage.getItem('fao_recs_v2');
       if (saved) return JSON.parse(saved);
     } catch (e) {}
-    return REC_DEFAULTS;
+    return ["Click to edit this recommendation."];
   });
-  e1(() => { localStorage.setItem('fao_recs_v1', JSON.stringify(recs)); }, [recs]);
+  e1(() => { localStorage.setItem('fao_recs_v2', JSON.stringify(items)); }, [items]);
 
-  function updatePhase(i, v) {
-    setRecs(R => R.map((r, ri) => ri === i ? { ...r, phase: v } : r));
-  }
-  function updateItem(i, j, v) {
-    setRecs(R => R.map((r, ri) => ri === i
-      ? { ...r, items: r.items.map((it, ji) => ji === j ? v : it) }
-      : r));
-  }
-  function addItem(i) {
-    setRecs(R => R.map((r, ri) => ri === i ? { ...r, items: [...r.items, "New recommendation — click to edit"] } : r));
-  }
-  function removeItem(i, j) {
-    setRecs(R => R.map((r, ri) => ri === i ? { ...r, items: r.items.filter((_, ji) => ji !== j) } : r));
-  }
-  function addPhase() {
-    setRecs(R => [...R, { phase: "New phase — click to edit", items: ["New recommendation — click to edit"] }]);
-  }
-  function removePhase(i) {
-    setRecs(R => R.filter((_, ri) => ri !== i));
-  }
-  function reset() { setRecs(REC_DEFAULTS); }
+  function update(i, v) { setItems(L => L.map((x, j) => j === i ? v : x)); }
+  function add() { setItems(L => [...L, "Click to edit this recommendation."]); }
+  function remove(i) { setItems(L => L.filter((_, j) => j !== i)); }
 
   return (
     <window.Slide label="18 Recommendations">
       <window.SlideTitle
         eyebrow="Recommendations"
         title="Proposed adjustments for the next preparedness cycle."
-        sub="Each item is editable. Changes are stored locally."
       />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 12 }}>
-        {recs.map((r, i) => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 20 }}>
+        {items.map((item, i) => (
           <div key={i} style={{
             background: 'white', border: `1px solid ${window.FAO.rule}`, borderRadius: 8,
-            padding: '20px 28px', display: 'grid',
-            gridTemplateColumns: '300px 1fr', gap: 24
+            padding: '16px 24px', display: 'grid', gridTemplateColumns: '1fr 36px', alignItems: 'start', gap: 12
           }}>
-            <div style={{ borderRight: `1px solid ${window.FAO.ruleSoft}`, paddingRight: 20, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 10 }}>
-              <textarea value={r.phase} onChange={e => updatePhase(i, e.target.value)}
+            <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+              <span style={{ marginTop: 14, width: 14, height: 2, background: window.FAO.blue, flexShrink: 0, display: 'inline-block' }} />
+              <textarea value={item} onChange={e => update(i, e.target.value)}
                 rows={2} style={{
-                  fontSize: window.TYPE_SCALE.small, color: window.FAO.blueDark,
-                  fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em',
-                  fontFamily: 'inherit', border: 'none', outline: 'none',
+                  fontSize: window.TYPE_SCALE.small, color: window.FAO.ink,
+                  lineHeight: 1.5, fontFamily: 'inherit', border: 'none', outline: 'none',
                   resize: 'none', background: 'transparent', width: '100%', padding: 0
                 }} />
-              <button onClick={() => removePhase(i)} style={{
-                border: 'none', background: 'transparent', color: window.FAO.inkSoft,
-                fontSize: 12, cursor: 'pointer', textAlign: 'left', padding: 0
-              }}>Remove phase</button>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {r.items.map((it, j) => (
-                <div key={j} style={{ display: 'grid', gridTemplateColumns: '1fr 32px', alignItems: 'start', gap: 8 }}>
-                  <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                    <span style={{ marginTop: 12, width: 12, height: 2, background: window.FAO.blue, flexShrink: 0, display: 'inline-block' }} />
-                    <textarea value={it} onChange={e => updateItem(i, j, e.target.value)}
-                      rows={2} style={{
-                        fontSize: window.TYPE_SCALE.small, color: window.FAO.ink,
-                        lineHeight: 1.4, fontFamily: 'inherit', border: 'none', outline: 'none',
-                        resize: 'none', background: 'transparent', width: '100%', padding: 0
-                      }} />
-                  </div>
-                  <button onClick={() => removeItem(i, j)} style={{
-                    border: 'none', background: 'transparent', color: window.FAO.inkSoft,
-                    fontSize: 20, cursor: 'pointer', marginTop: 2
-                  }}>×</button>
-                </div>
-              ))}
-              <button onClick={() => addItem(i)} style={{
-                border: `1px dashed ${window.FAO.rule}`, background: 'transparent',
-                padding: '6px 14px', borderRadius: 6, cursor: 'pointer',
-                fontSize: 13, color: window.FAO.inkSoft, fontFamily: 'inherit', marginTop: 4
-              }}>+ Add item</button>
-            </div>
+            <button onClick={() => remove(i)} style={{
+              border: 'none', background: 'transparent', color: window.FAO.inkSoft,
+              fontSize: 22, cursor: 'pointer', paddingTop: 4
+            }}>×</button>
           </div>
         ))}
-        <div style={{ display: 'flex', gap: 12 }}>
-          <button onClick={addPhase} style={{
-            border: `2px dashed ${window.FAO.rule}`, background: 'transparent',
-            padding: '14px 24px', borderRadius: 8, cursor: 'pointer',
-            fontSize: window.TYPE_SCALE.small, color: window.FAO.inkSoft,
-            fontFamily: 'inherit', fontWeight: 500
-          }}>+ Add phase</button>
-          <button onClick={reset} style={{
-            border: `1px solid ${window.FAO.rule}`, background: 'white',
-            padding: '14px 24px', borderRadius: 8, cursor: 'pointer',
-            fontSize: window.TYPE_SCALE.small, color: window.FAO.inkSoft,
-            fontFamily: 'inherit'
-          }}>Reset to defaults</button>
-        </div>
+        <button onClick={add} style={{
+          border: `2px dashed ${window.FAO.rule}`, background: 'transparent',
+          padding: '14px 24px', borderRadius: 8, cursor: 'pointer',
+          fontSize: window.TYPE_SCALE.small, color: window.FAO.inkSoft,
+          fontFamily: 'inherit', fontWeight: 500, textAlign: 'left'
+        }}>+ Add recommendation</button>
       </div>
     </window.Slide>
   );
